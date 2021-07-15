@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Регистрация на сайте{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="form-section">
+        <h1>Регистрация</h1>
+        <h1>``Chat Online``</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="fieldWrapper">
+                {{ field.errors }}
+                {{ field.label_tag }} {{ field }}
+                {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <div class="profile_btn">
+                <button type="submit" class="profile__btn">Зарегистрироваться</button>
+            </div>
+        </form>
+        <span>Уже зарегистрированы? <a href="{% url 'user' %}" class="a_s">Войти в ``Chat Online``</a></span>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Chat-online{% endblock %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <form class="form-inline mt-3" action="{% url 'home' %}">
+        <input class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Search" name="search">
+        <button class="btn btn-outline-success mt-2" type="submit">Поиск</button>
+    </form>
+    {% if messages %}
+        {% for mess in messages %}
+            <div class="mess_prof">{{ mess }}</div>
+        {% endfor %}
+    {% endif %}
+    {% if users %}
+        {% for user in users %}
+            <a href="user/{{ user.id }}">
+                <div class="user_list">
+                    <img src="{{ user.profile.img.url }}" style="width:50px" alt="User photo">
+                    <p>@{{ user.username }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    {% endif %}
+    {% if rooms %}
+        {% for room in rooms %}
+            <a href="/{{ room.room_id }}/">
+                <div class="user_list">
+                   <img src="{{ room.user2.profile.img.url }}" style="width:50px" alt="User photo">
+                        <p>@{{ room.user2.username }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    {% endif %}
+    {% if roomss %}
+        {% for room in roomss %}
+            <a href="/{{ room.room_id }}/">
+                <div class="user_list">
+                   <img src="{{ room.user1.profile.img.url }}" style="width:50px" alt="User photo">
+                        <p>@{{ room.user1.username }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    {% endif %}
+    {% block room %}{% endblock %}
+</div>
+{% endblock content %}

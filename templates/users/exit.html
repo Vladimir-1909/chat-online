@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Вы успешно вышли с аккаунта{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="form-section">
+        <h2>Вы успешно вышли с аккаунта</h2>
+        <a href="{% url 'user' %}" class="a_s">Войти в личный кабинет снова</a>
+    </div>
+</div>
+{% endblock %}

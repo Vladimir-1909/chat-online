@@ -1,0 +1,88 @@
+{% extends 'chat/home.html' %}
+{% load static %}
+
+{% block title %}Chat-online{% endblock %}
+{% block css%}
+<style>
+  .div_row,
+  .form-room .form_text,
+  .date{
+    border: 1px solid silver;
+    border-radius: 7px;
+  }
+  .div_row{padding: 20px 0;}
+
+  .form-room{display: grid;padding-top: 25px;}
+  .form-room .form_text{
+    padding: 10px;
+    outline: none;
+  }
+  .date{
+    padding: 5px;
+  }
+  .close_icon{
+    margin-right: 10px;
+    width:30px;
+    cursor:pointer;
+  }
+  .close_icon:hover{
+    width:33px;
+  }
+
+  .div_he {
+    background: crimson;
+    box-shadow: 0 -200px 100px -120px crimson inset;
+    animation: background 3s infinite alternate;
+    padding: 6px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  @keyframes background {
+    50% {
+      background: skyblue;
+      box-shadow: 0 -200px 100px -100px yellowgreen inset;
+    }
+  }
+
+</style>
+{% endblock css %}
+
+{% block room %}
+{% for chat in chats %}
+  <div class="row mt-2 div_row">
+    <div class="feature col">
+      <div class="div_he">
+        <img src="{{ chat.user.profile.img.url }}" style="width:50px" alt="User photo">
+        {% if user == chat.user %}
+          <span class="close" title="Удалить" data-pid="{{ chat.id }}"><img src="{% static 'img/close_icon.png' %}" class="close_icon" alt="close"></span>
+        {% endif %}
+      </div>
+      <h2>@{{ chat.user }}</h2>
+      <p>{{ chat.text }}</p>
+      <span class="date">Дата отправки сообщения {{ chat.date|date:"H:i d E Y г." }}</span>
+    </div>
+  </div>
+{% endfor %}
+
+<form class="form-room" action="{% url 'save_message' %}" method="post">
+  {% csrf_token %}
+  <input type="hidden" name="room" value="{{ room.room_id }}">
+  <textarea class="form_text" name="text" rows="4" placeholder="Введите сообщение"></textarea>
+  <button class="btn btn-outline-warning mt-2" type="submit">Отправить сообщение</button>
+</form>
+{% block extra_bottom_js %}
+<script>
+$(document).on('click', '.close', function(e) {
+  console.log("Hellos")
+  e.preventDefault();
+  var self = $(this);
+  $.get('/remove/'+self.data('pid')+'/', function(r) {
+    self.parent().parent().parent().fadeOut();
+  });
+});
+</script>
+{% endblock extra_bottom_js%}
+{% endblock room %}

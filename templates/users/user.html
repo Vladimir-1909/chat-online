@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Авторизация на сайте{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="form-section">
+        <h1>Войти</h1>
+        <h1>``Chat Online``</h1>
+        {% if messages %}
+        {% for mess in messages %}
+            <div class="mess_prof">{{ mess }}</div>
+        {% endfor %}
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <div class="profile_btn">
+                <button type="submit" class="profile__btn">Войти</button>
+            </div>
+        </form>
+        <span>Не зарегистрированы? <a href="{% url 'reg' %}" class="a_s">Зарегистрироваться ``Chat Online``</a></span>
+    </div>
+</div>
+{% endblock %}
