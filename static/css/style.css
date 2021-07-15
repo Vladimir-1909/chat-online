@@ -112,6 +112,13 @@ main {
     margin: 5% 30%;
 }
 
+@media screen and (max-width:510px) {
+    .container{
+        width: 80%;
+        margin: 5% 10%;
+    }
+}
+
 .chat-widget textarea{
     margin-top: 15px;
     padding: 8px;
