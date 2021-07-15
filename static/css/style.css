@@ -117,6 +117,9 @@ main {
         width: 80%;
         margin: 5% 10%;
     }
+    .date{
+        font-size: 10px;
+    }
 }
 
 .chat-widget textarea{
