@@ -55,8 +55,12 @@ WSGI_APPLICATION = 'chat_online.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'chat-online',
+        'USER': 'USER',
+        'PASSWORD': '12345678',
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
 
@@ -87,6 +91,9 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 
 LOGIN_REDIRECT_URL = 'profile'
 LOGIN_URL = 'user'
